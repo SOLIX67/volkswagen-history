@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Specifications | Mk1 Archives</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e8e8e8;
+            background-color: #121212;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #1d3557;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: #e63946;
+        }
+
+        .logo span {
+            font-size: 0.8rem;
+            margin-left: 10px;
+            opacity: 0.8;
+        }
+
+        .nav-menu ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 20px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #e63946;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .video-hero {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Content Section */
+        .content-section {
+            padding: 80px 0;
+            background-color: #1a1a1a;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+            color: #a8dadc;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Tabs */
+        .specs-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #2d3748;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 24px;
+            margin: 0 5px;
+            color: #a0aec0;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn:hover {
+            color: #e63946;
+            background-color: rgba(230, 57, 70, 0.1);
+        }
+
+        .tab-btn.active {
+            color: #e63946;
+            border-bottom: 3px solid #e63946;
+            background-color: rgba(230, 57, 70, 0.1);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Tables */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+            background-color: #2d3748;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .specs-table th {
+            background-color: #1d3557;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #e63946;
+        }
+
+        .specs-table td {
+            padding: 15px;
+            border-bottom: 1px solid #4a5568;
+            color: #e2e8f0;
+        }
+
+        .specs-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .specs-table tr:hover {
+            background-color: #4a5568;
+        }
+
+        .spec-highlight {
+            background-color: rgba(230, 57, 70, 0.1);
+        }
+
+        .spec-highlight td {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        /* Highlights Section */
+        .specs-highlights {
+            margin-top: 60px;
+            padding: 40px;
+            background-color: #2d3748;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .specs-highlights h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffffff;
+            font-size: 1.8rem;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .highlight-item {
+            text-align: center;
+            padding: 25px;
+            background-color: #1a202c;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .highlight-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .highlight-item i {
+            font-size: 2.5rem;
+            color: #e63946;
+            margin-bottom: 15px;
+        }
+
+        .highlight-item h4 {
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .highlight-item p {
+            color: #a0aec0;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1d3557;
+            color: white;
+            padding: 50px 0 0;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-column {
+            flex: 1;
+            padding: 0 15px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            color: #e63946;
+            font-size: 1.3rem;
+        }
+
+        .footer-column a {
+            display: block;
+            color: #a8dadc;
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .footer-column p {
+            margin-bottom: 10px;
+            color: #a8dadc;
+        }
+
+        .footer-column i {
+            margin-right: 10px;
+            color: #e63946;
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-top: 1px solid #457b9d;
+            color: #a8dadc;
+        }
+
+        /* Mobile Responsive */
+        @media screen and (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #1d3557;
+                display: none;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-menu.active {
+                display: block;
+            }
+            
+            .nav-menu ul {
+                flex-direction: column;
+            }
+            
+            .nav-menu li {
+                margin: 10px 0;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .specs-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                max-width: 300px;
+                margin: 5px 0;
+            }
+            
+            .specs-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .footer-container {
+                flex-direction: column;
+            }
+            
+            .footer-column {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-car"></i>MK1<span>ARCHIVES BY SOLIX_67</span></div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="golf-mk1.html">GOLF MK1</a></li>
+                    <li><a href="citi-golf.html">CITI GOLF</a></li>
+                    <li><a href="velociti-rox.html">VELOCITI & ROX</a></li>
+                    <li><a href="gallery.html">GALLERY</a></li>
+                    <li><a href="specs.html" class="active">SPECS</a></li>
+                    <li><a href="timeline.html">TIMELINE</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero video-hero" id="home">
+        <div class="video-background">
+            <video autoplay muted loop playsinline id="specsVideo">
+                <source src="VIDEO BG.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1 style="text-align: center;">TECHNICAL SPECIFICATIONS</h1>
+            <p style="text-align: center;">Complete Technical Data for All Models</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Performance Comparison</h2>
+            <p class="section-subtitle">Detailed specifications across all Golf Mk1 and Citi Golf variants</p>
+
+            <div class="specs-tabs">
+                <button class="tab-btn active" data-tab="performance">Performance</button>
+                <button class="tab-btn" data-tab="engine">Engine Specifications</button>
+                <button class="tab-btn" data-tab="dimensions">Dimensions</button>
+            </div>
+
+            <div class="tab-content active" id="performance">
+                <table class="specs-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Engine</th>
+                            <th>Power</th>
+                            <th>Torque</th>
+                            <th>0-100 km/h</th>
+                            <th>Top Speed</th>
+                            <th>Fuel Economy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Golf Mk1 GTI (1976)</td>
+                            <td>1.6L 8V</td>
+                            <td>81 kW (110 PS)</td>
+                            <td>140 Nm</td>
+                            <td>9.2 s</td>
+                            <td>182 km/h</td>
+                            <td>8.5 L/100km</td>
+                        </tr>
+                        <tr class="spec-highlight">
+                            <td>Citi Golf Velociti 1.8i</td>
+                            <td>1.8L 8V</td>
+                            <td>82 kW (112 PS)</td>
+                            <td>155 Nm</td>
+                            <td>9.5 s</td>
+                            <td>185 km/h</td>
+                            <td>8.8 L/100km</td>
+                        </tr>
+                        <tr>
+                            <td>Citi Golf 1.6</td>
+                            <td>1.6L 8V</td>
+                            <td>74 kW (100 PS)</td>
+                            <td>135 Nm</td>
+                            <td>10.5 s</td>
+                            <td>175 km/h</td>
+                            <td>8.2 L/100km</td>
+                        </tr>
+                        <tr>
+                            <td>Citi Golf Rox 1.6</td>
+                            <td>1.6L 8V</td>
+                            <td>74 kW (100 PS)</td>
+                            <td>135 Nm</td>
+                            <td>10.5 s</td>
+                            <td>175 km/h</td>
+                            <td>8.2 L/100km</td>
+                        </tr>
+                        <tr>
+                            <td>Golf Mk1 1.1</td>
+                            <td>1.1L 8V</td>
+                            <td>37 kW (50 PS)</td>
+                            <td>78 Nm</td>
+                            <td>18.0 s</td>
+                            <td>138 km/h</td>
+                            <td>7.5 L/100km</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-content" id="engine">
+                <table class="specs-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Engine Code</th>
+                            <th>Displacement</th>
+                            <th>Configuration</th>
+                            <th>Fuel System</th>
+                            <th>Compression</th>
+                            <th>Redline</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Golf Mk1 GTI</td>
+                            <td>EA827</td>
+                            <td>1588 cc</td>
+                            <td>I4 8V</td>
+                            <td>K-Jetronic</td>
+                            <td>10.0:1</td>
+                            <td>6500 rpm</td>
+                        </tr>
+                        <tr class="spec-highlight">
+                            <td>Citi Golf Velociti</td>
+                            <td>ADY</td>
+                            <td>1781 cc</td>
+                            <td>I4 8V</td>
+                            <td>Multi-point EFI</td>
+                            <td>9.5:1</td>
+                            <td>6200 rpm</td>
+                        </tr>
+                        <tr>
+                            <td>Citi Golf 1.6</td>
+                            <td>ABU</td>
+                            <td>1595 cc</td>
+                            <td>I4 8V</td>
+                            <td>Carburetor</td>
+                            <td>9.0:1</td>
+                            <td>6000 rpm</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-content" id="dimensions">
+                <table class="specs-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Length</th>
+                            <th>Width</th>
+                            <th>Height</th>
+                            <th>Wheelbase</th>
+                            <th>Weight</th>
+                            <th>Boot Capacity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Golf Mk1 3-door</td>
+                            <td>3705 mm</td>
+                            <td>1610 mm</td>
+                            <td>1395 mm</td>
+                            <td>2400 mm</td>
+                            <td>810 kg</td>
+                            <td>305 L</td>
+                        </tr>
+                        <tr>
+                            <td>Citi Golf 3-door</td>
+                            <td>3815 mm</td>
+                            <td>1625 mm</td>
+                            <td>1395 mm</td>
+                            <td>2400 mm</td>
+                            <td>850 kg</td>
+                            <td>315 L</td>
+                        </tr>
+                        <tr class="spec-highlight">
+                            <td>Citi Golf Velociti</td>
+                            <td>3815 mm</td>
+                            <td>1625 mm</td>
+                            <td>1395 mm</td>
+                            <td>2400 mm</td>
+                            <td>870 kg</td>
+                            <td>315 L</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="specs-highlights">
+                <h3>Key Technical Highlights</h3>
+                <div class="highlights-grid">
+                    <div class="highlight-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <h4>Performance</h4>
+                        <p>Velociti's 1.8L engine delivered 82 kW, making it the most powerful Citi Golf ever produced</p>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-cog"></i>
+                        <h4>Engineering</h4>
+                        <p>All models featured front-wheel drive with transversely mounted engines</p>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-weight-hanging"></i>
+                        <h4>Lightweight</h4>
+                        <p>Weighing just 810-870 kg, these cars offered excellent power-to-weight ratios</p>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-gas-pump"></i>
+                        <h4>Efficiency</h4>
+                        <p>Despite their performance, these cars maintained reasonable fuel consumption</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>MK1 ARCHIVES</h3>
+                <p>Your definitive technical resource for Volkswagen specifications.</p>
+            </div>
+            <div class="footer-column">
+                <h3>EXPLORE MORE</h3>
+                <a href="golf-mk1.html">Golf Mk1 Details</a>
+                <a href="citi-golf.html">Citi Golf Info</a>
+                <a href="velociti-rox.html">Velociti & Rox Specs</a>
+            </div>
+            <div class="footer-column">
+                <h3>CONTACT</h3>
+                <p><i class="fas fa-envelope"></i> omphile67i@icloud.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Mk1 Golf Archives</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Get the target tab ID from the data-tab attribute
+                    const targetTab = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and content
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Show the corresponding tab content
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (mobileMenuBtn && navMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
